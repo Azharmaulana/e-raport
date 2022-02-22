@@ -42,14 +42,20 @@ class SiswaController extends Controller
             'email'=>'required|email|exists:users,email',
             'password'=>'required|min:5|max:30',
         ],[
-            'email.exists'=> 'Email ini tidak terdaftar!'
+            'email.exists'=> 'Email tidak terdaftar!'
         ]);
 
         $creds = $request->only('email','password');
-        if (Auth::attempt($creds) ) {
-            return redirect()->route('user.home');
+        if (Auth::guard('web')->attempt($creds) ) {
+            return redirect()->route('siswa.home');
         }else{
-            return redirect()->route('siswa.login')->with('fail','Incorrect credintials');
+            return redirect()->route('siswa.login')->with('fail','Something went wrong!');
         }
+    }
+
+    function logout()
+    {
+        Auth::guard('web')->logout();
+        return redirect('/');
     }
 }
