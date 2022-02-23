@@ -24,7 +24,7 @@
     text-align: center;
     padding: 15px 0 20px;
     font-size: 100px;
-    color: #fdfdfd;
+    color: #f6f7f8;
 }
 
 .login-dark form .form-control {
@@ -71,4 +71,12 @@
 
 .login-dark form .btn-primary:active {
     transform: translateY(1px);
+}
+
+select option {
+    color: black;
+}
+
+.link {
+    font-size: 10px;
 }

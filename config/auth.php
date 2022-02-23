@@ -21,6 +21,10 @@ return [
         'driver' => 'eloquent',
         'model' =>  App\Models\Admin::class,
     ],
+    'guru'=>[
+        'driver' => 'eloquent',
+        'model' =>  App\Models\Guru::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +56,10 @@ return [
     'admin' =>[
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+    'guru' => [
+        'driver' => 'session',
+        'provider' => 'gurus'
         ],
     ],
 
@@ -85,7 +93,11 @@ return [
         'admins' =>[
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
-        ]
+        ],
+        'gurus' =>[
+            'driver' => 'eloquent',
+            'model' => App\Models\Guru::class,
+        ],
     ],
 
 
@@ -114,7 +126,11 @@ return [
     'admins' => [
         'driver'=> 'eloquent',
         'model' => App\Models\Admin::class,
-        ]
+        ],
+    'gurus' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Guru::class,
+        ],
     ],
 
     /*

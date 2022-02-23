@@ -29,6 +29,10 @@ class RedirectIfAuthenticated
                 {
                     return redirect()->route('admin.home');
                 }
+                if($guard === 'guru')
+                {
+                    return redirect()->route('guru.home');
+                }
                 return redirect()->route('siswa.home');
                 // return redirect(RouteServiceProvider::HOME);
             }
