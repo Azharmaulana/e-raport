@@ -1,63 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Siswa Login</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="slide navbar style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/my-login.css') }}">
 </head>
+
 <body>
-    <div class="main">  	
-		<input type="checkbox" id="chk" aria-hidden="true">
-
-			<div class="signup">
-				<form action="{{ route('siswa.create') }}" method="POST" autocomplete="off">
-					@if(Session::get('success'))
-					<div class="alert alet-success">
-						{{ Session::get('success') }}
-					</div>
-					@endif
-					@if(Session::get('fail'))
-					<div class="alert alet-danger">
-						{{ Session::get('fail') }}
-					</div>
-					@endif
-					@csrf
-					<label aria-hidden="true">Siswa Register</label>
-					<input type="text" name="name" placeholder="Name" required="" value="{{ old('name') }}" autofocus>
-					<input type="text" name="username" placeholder="User name" required="" value="{{ old('username') }}" autofocus>
-					<input type="email" name="email" placeholder="Email" value="{{ old('email') }}" autofocus>
-					<span class="text-center"> 
-						@error('email'){{ $message }}@enderror
-					</span>
-					<input type="password" name="password" placeholder="Password" required="" value="{{ old('password') }}" autofocus>
-					<button>Sign up</button>
-				</form>
+    <div class="login-dark">
+        <form action="{{ route('siswa.check') }}" method="post" autocomplete="off">
+            @if(Session::get('fail'))
+                <div class="alert alert-danger">
+                    {{ Session::get('fail') }}
+                </div>                
+            @endif
+            @csrf
+            <h2 class="sr-only">Register</h2>
+                <div class="illustration">
+                    <i class="icon ion-ios-locked-outline"></i>
+                </div>
+            
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                <span class="text-danger">
+                    @error('email'){{ $message }} @enderror
+                </span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password" value="{{ old('password') }}">
+                <span class="text-danger">
+                    @error('password'){{ $message }} @enderror
+                </span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+            </div>
+			<div class="link">
+				<a href="{{ route('siswa.register') }}">Create new Account</a>
 			</div>
-
-			<div class="login">
-				<form action="{{ route('siswa.check') }}" method="POST" autocomplete="off">
-					@if(Session::get('fail'))
-						<div class="alert alert-danger">
-							{{ Session::get('fail') }}
-						</div>
-					@endif
-					@csrf
-					<label for="chk" aria-hidden="true">Siswa Login</label>
-					<input type="email" name="email" placeholder="Email" autofocus value="{{ old('email') }}">
-					<span class="text-center"> 
-						@error('email'){{ $message }}@enderror
-					</span>
-					<input type="password" name="password" placeholder="Password" autofocus value="{{ old('password') }}">
-					<span class="text-center">
-						@error('password'){{ $message }}@enderror
-					</span>
-					<button>Login</button>
-				</form>
-			</div>
-	</div>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

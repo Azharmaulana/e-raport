@@ -49,7 +49,7 @@ class SiswaController extends Controller
         if (Auth::guard('web')->attempt($creds) ) {
             return redirect()->route('siswa.home');
         }else{
-            return redirect()->route('siswa.login')->with('fail','Something went wrong!');
+            return redirect()->route('siswa.login')->with('fail','Ada yang salah !');
         }
     }
 

@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\Admincontroller;
-use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Guru\GuruController;
+use App\Http\Controllers\Admin\Admincontroller;
+use App\Http\Controllers\LandingpageController;
+use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\Admin\PengajarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +18,9 @@ use App\Http\Controllers\Guru\GuruController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[LandingpageController::class,'index'])->name('/');
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 //for siswa or user
 Route::prefix('siswa')->name('siswa.')->group(function(){
@@ -36,7 +32,9 @@ Route::prefix('siswa')->name('siswa.')->group(function(){
         Route::post('/check',[SiswaController::class,'check'])->name('check');
     });
     Route::middleware(['auth:web','PreventBackHistory'])->group(function(){
-        Route::view('/home','dashboard.siswa.home')->name('home');
+        Route::view('/home','dashboard.siswa.home',[
+            "title" => "Home"
+        ])->name('home');
         Route::post('/logout',[SiswaController::class,'logout'])->name('logout');
     });
 });
@@ -50,23 +48,30 @@ Route::prefix('admin')->name('admin.')->group(function(){
     });
 
     Route::middleware('auth:admin','PreventBackHistory')->group(function(){
-        Route::view('/home','dashboard.admin.home')->name('home');
+        Route::view('/home','dashboard.admin.home',[
+            "title" => "Home"
+        ])->name('home');
         Route::post('/logout',[Admincontroller::class,'logout'])->name('logout');
     });
 });
+    Route::resource('pengajars',PengajarController::class)->middleware('auth:admin');
+
 
 //for guru
 Route::prefix('guru')->name('guru.')->group(function(){
 
-    Route::middleware(['guest:guru'])->group(function(){
+    Route::middleware(['guest:guru','PreventBackHistory'])->group(function(){
         Route::view('/login','dashboard.guru.login')->name('login');
         Route::view('/register','dashboard.guru.register')->name('register');
         Route::post('/create',[GuruController::class,'create'])->name('create');
         Route::post('/check',[GuruController::class,'check'])->name('check');
     });
 
-    Route::middleware(['auth:guru'])->group(function(){
-        Route::view('/home','dashboard.guru.home')->name('home');
+    Route::middleware(['auth:guru','PreventBackHistory'])->group(function(){
+        Route::view('/home','dashboard.guru.home',[
+            "title" => "Home"
+        ])->name('home');
+        Route::post('/logout',[GuruController::class,'logout'])->name('logout');
     });
 
 });

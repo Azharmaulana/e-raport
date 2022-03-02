@@ -9,8 +9,8 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
-{
-    public function check(Request $request)
+{   
+    function check(Request $request)
     {
         //validate inputs
         $request->validate([
@@ -25,7 +25,7 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($creds)) {
             return redirect()->route('admin.home');
         } else {
-            return redirect()->route('admin.login')->with('fail', 'Incorrect credentials!');
+            return redirect()->route('admin.login')->with('fail', 'Ada yang salah !');
         }
     }
 
